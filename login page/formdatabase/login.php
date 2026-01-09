@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['email'] = $user['email'];
 
             // ✅ Redirect to PHP-based main page
-            header("Location: ../Index.html");
+            header("Location: ../index.html");
             exit();
         } else {
             echo "❌ Incorrect password. Try again!";

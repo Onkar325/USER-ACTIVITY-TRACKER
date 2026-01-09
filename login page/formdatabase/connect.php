@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $activity->execute();
         $activity->close();
 
-        header("Location: ../Index.html");
+        header("Location: ../index.html");
         exit();
     } else {
         die("❌ Error: " . $stmt->error);
