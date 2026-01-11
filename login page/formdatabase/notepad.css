@@ -74,31 +74,16 @@ body {
 }
 
 #window {
-  width: 100%;
-  max-width: 1200px;
+  width: 1445px;
   height: auto;
   background: rgba(105, 98, 98, 0.1);
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 15px;
   color: #080808;
   backdrop-filter: blur(14px);
   box-shadow: 0 10px 40px rgba(142, 138, 138, 0.3);
   position: relative;
   transition: all 0.3s ease;
-}
-
-@media (max-width: 900px) {
-  body {
-    padding-top: 60px;
-  }
-  #window {
-    padding: 12px;
-    border-radius: 6px;
-  }
-  #textarea {
-    width: 100%;
-    height: calc(100vh - 220px);
-  }
 }
 
 #buttons {
