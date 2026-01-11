@@ -28,16 +28,37 @@ if (savedTheme === "dark") {
   themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
 }
 
-// Mobile Menu
-const mobileMenu = document.querySelector(".mobile-menu");
-const navLinks = document.querySelector(".nav-links");
+// Mobile Menu (supports both `.mobile-menu` and `#hamburger`)
+const mobileMenuBtns = document.querySelectorAll(".mobile-menu, #hamburger");
 
-mobileMenu.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
-  mobileMenu.classList.toggle("active");
+// Use the desktop `.nav-links` or fallback to `#navLinks` used in some pages
+function getNav() {
+  return document.querySelector(".nav-links") || document.getElementById("navLinks");
+}
+
+mobileMenuBtns.forEach((btn) => {
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const nav = getNav();
+    if (!nav) return;
+    nav.classList.toggle("active");
+    btn.classList.toggle("active");
+    // Update accessible state
+    const expanded = btn.classList.contains('active') ? 'true' : 'false';
+    try { btn.setAttribute('aria-expanded', expanded); } catch (e) {}
+  });
 });
 
-// Smooth Scrolling
+// Close mobile menu when a nav link is clicked (works for both structures)
+document.querySelectorAll('.nav-links a, #navLinks a').forEach((link) => {
+  link.addEventListener('click', () => {
+    const nav = getNav();
+    if (nav) nav.classList.remove('active');
+    mobileMenuBtns.forEach((b) => b.classList.remove('active'));
+  });
+});
+
+// Smooth Scrolling (hash-only anchors)
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
@@ -48,10 +69,30 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         block: "start",
       });
       // Close mobile menu if open
-      navLinks.classList.remove("active");
-      mobileMenu.classList.remove("active");
+      const nav = getNav();
+      if (nav) nav.classList.remove("active");
+      mobileMenuBtns.forEach((b) => b.classList.remove('active'));
     }
   });
+});
+
+// (BUGFIX) Stats observer was using querySelector instead of querySelectorAll
+// Intersection Observer for Stats Animation
+const statsObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateStats();
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.5 }
+);
+
+// Observe all elements with .hero-stats
+document.querySelectorAll(".hero-stats").forEach((stats) => {
+  statsObserver.observe(stats);
 });
 
 // Navbar Scroll Effect
