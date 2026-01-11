@@ -177,7 +177,7 @@ const statsObserver = new IntersectionObserver(
   { threshold: 0.5 }
 );
 
-document.querySelector(".hero-stats").forEach((stats) => {
+document.querySelectorAll(".hero-stats").forEach((stats) => {
   statsObserver.observe(stats);
 });
 
