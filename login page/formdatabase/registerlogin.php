@@ -13,7 +13,7 @@
   <body>
     <div class="container">
       <div class="form-box login">
-        <form action="login.php" method="post">
+        <form action="#" method="post">
           <h1>Login</h1>
           <div class="input-box">
             <input type="text" name="username" placeholder="Username" required />
@@ -38,7 +38,7 @@
       </div>
 .
       <div class="form-box register">
-        <form action="connect.php" method="post">
+        <form action="#" method="post">
           <h1>Registration</h1>
           <div class="input-box">
             <input type="text" name="username" placeholder="Username" required />
