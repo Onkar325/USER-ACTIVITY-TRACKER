@@ -200,7 +200,8 @@ body::before {
     pointer-events: none;
     transition: transform 0.5s cubic-bezier(0.4, 2, 0.6, 1), opacity 0.5s;
   }
-  .nav-links.open {
+  .nav-links.open,
+  .nav-links.active {
     transform: translateX(0);
     opacity: 1;
     pointer-events: auto;

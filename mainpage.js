@@ -32,10 +32,21 @@ if (savedTheme === "dark") {
 const mobileMenu = document.querySelector(".mobile-menu");
 const navLinks = document.querySelector(".nav-links");
 
-mobileMenu.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
-  mobileMenu.classList.toggle("active");
-});
+if (mobileMenu && navLinks) {
+  // make keyboard accessible
+  mobileMenu.setAttribute('tabindex', '0');
+  mobileMenu.addEventListener("click", () => {
+    const expanded = mobileMenu.getAttribute('aria-expanded') === 'true';
+    mobileMenu.setAttribute('aria-expanded', String(!expanded));
+    navLinks.classList.toggle("active");
+    mobileMenu.classList.toggle("active");
+  });
+  mobileMenu.addEventListener("keypress", (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      mobileMenu.click();
+    }
+  });
+}
 
 // Smooth Scrolling
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

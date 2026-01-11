@@ -454,12 +454,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // Responsive Navbar Hamburger
   const hamburger = document.getElementById("hamburger");
   const navLinks = document.getElementById("navLinks");
-  hamburger.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
-  });
-  hamburger.addEventListener("keypress", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
+  if (hamburger && navLinks) {
+    hamburger.setAttribute('tabindex', '0');
+    hamburger.addEventListener("click", () => {
       navLinks.classList.toggle("open");
-    }
-  });
+      navLinks.classList.toggle("active");
+      // if a site-wide mobile-menu exists, keep it in sync
+      const menuBtn = document.querySelector('.mobile-menu');
+      if (menuBtn) {
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', String(!expanded));
+        menuBtn.classList.toggle('active');
+      }
+    });
+    hamburger.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        hamburger.click();
+      }
+    });
+  }
 });
